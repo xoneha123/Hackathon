@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hangman Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    #word-container {
+      margin: 20px;
+      font-size: 24px;
+    }
+    #guess-input {
+      margin-top: 10px;
+      font-size: 16px;
+    }
+    #message {
+      margin-top: 10px;
+      font-size: 18px;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+<div id="word-container"></div>
+<input type="text" id="guess-input" maxlength="1" oninput="validateInput(this)">
+<button onclick="makeGuess()">Guess</button>
+<p id="message"></p>
+
+<script>
+  // Array of words for the game
+  const words = ["hangman", "javascript", "developer", "openai", "programming"];
+
+  // Select a random word from the array
+  let selectedWord = words[Math.floor(Math.random() * words.length)];
+
+  // Array to store guessed letters
+  let guessedLetters = [];
+
+  // Initialize the word display
+  let wordDisplay = Array(selectedWord.length).fill('_');
+
+  // Function to update the word display on the webpage
+  function updateWordDisplay() {
+    document.getElementById('word-container').innerText = wordDisplay.join(' ');
+  }
+
+  // Function to make a guess
+  function makeGuess() {
+    const guessInput = document.getElementById('guess-input');
+    const guess = guessInput.value.toLowerCase();
+
+    // Check if the guess is a single letter
+    if (guess.length !== 1 || !/[a-z]/.test(guess)) {
+      document.getElementById('message').innerText = "Please enter a valid single letter.";
+      return;
+    }
+
+    // Check if the letter has already been guessed
+    if (guessedLetters.includes(guess)) {
+      document.getElementById('message').innerText = "You already guessed that letter. Try another one.";
+      return;
+    }
+
+    // Add the guessed letter to the array
+    guessedLetters.push(guess);
+
+    // Check if the guessed letter is in the selected word
+    if (selectedWord.includes(guess)) {
+      // Update the word display with the correctly guessed letter
+      for (let i = 0; i < selectedWord.length; i++) {
+        if (selectedWord[i] === guess) {
+          wordDisplay[i] = guess;
+        }
+      }
+
+      // Check if the entire word has been guessed
+      if (!wordDisplay.includes('_')) {
+        document.getElementById('message').innerText = "Congratulations! You guessed the word!";
+        guessInput.disabled = true;
+      }
+    } else {
+      // Incorrect guess
+      document.getElementById('message').innerText = "Incorrect guess. Try again!";
+    }
+
+    // Update the word display and clear the input
+    updateWordDisplay();
+    guessInput.value = '';
+  }
+
+  // Function to validate input and allow only single letters
+  function validateInput(input) {
+    input.value = input.value.replace(/[^a-z]/gi, '').toLowerCase();
+  }
+
+  // Initialize the word display on page load
+  updateWordDisplay();
+</script>
+
+</body>
+</html>

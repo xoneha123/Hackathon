@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Platform</title>
+    <style>
+        body {
+            font-size: 16px;
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            color: #ff85a2;
+        }
+
+        label {
+            color: #888;
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #dcdcdc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #ff85a2;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: #ff6b87;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #dcdcdc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        #userNotesContainer {
+            margin-top: 10px;
+        }
+
+        #userNotesContainer div {
+            margin-bottom: 5px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Login Screen -->
+<div id="loginScreen" style="text-align: center;">
+    <h2 style="font-size: 24px;">Login</h2>
+    <form id="loginForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" required><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" required><br>
+        <button type="button" onclick="showGradeSelection()">Login</button>
+    </form>
+</div>
+
+<!-- Grade Selection Screen -->
+<div id="gradeSelectionScreen" style="display: none; text-align: center;">
+    <h2 style="font-size: 24px;">Grade Selection</h2>
+    <button onclick="showSubjects('grade9')">Grade 9</button>
+</div>
+
+<!-- Subjects Screen -->
+<div id="subjectsScreen" style="display: none; text-align: center;">
+    <h2 id="subjectHeading" style="font-size: 24px;"></h2>
+    <button onclick="showContent('math')">Math</button>
+    <button onclick="showContent('science')">Science</button>
+    <button onclick="goBack()">Back</button>
+</div>
+
+<!-- Content Screen -->
+<div id="contentScreen" style="display: none; text-align: center;">
+    <h2 id="contentHeading" style="font-size: 24px;"></h2>
+    <p id="contentText"></p>
+    <button onclick="goBack()">Back</button>
+    <button onclick="increaseFontSize()">Increase Font Size</button>
+    <button onclick="decreaseFontSize()">Decrease Font Size</button>
+    <button onclick="textToSpeech()">Text to Speech</button>
+    <button onclick="boldWords()">Bold Important Words</button>
+    <textarea id="userNotes" placeholder="Type your notes here"></textarea>
+    <button onclick="addUserNotes()">Add Notes</button>
+    <div id="userNotesContainer"></div>
+	<a href="hangman.html">Play Hangman</a>
+</div>
+
+<script>
+    function showGradeSelection() {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('gradeSelectionScreen').style.display = 'block';
+    }
+
+    function showSubjects(grade) {
+        document.getElementById('gradeSelectionScreen').style.display = 'none';
+        document.getElementById('subjectsScreen').style.display = 'block';
+        document.getElementById('subjectHeading').innerText = `Choose a subject for ${grade}`;
+    }
+
+    function showContent(subject) {
+        document.getElementById('subjectsScreen').style.display = 'none';
+        document.getElementById('contentScreen').style.display = 'block';
+
+        // Set content based on the subject
+        switch (subject) {
+            case 'math':
+                document.getElementById('contentHeading').innerText = 'Grade 9 Math';
+                document.getElementById('contentText').innerText =
+                    'Chapter 1: Mathematical Processes\n' +
+                    'Mathematical processes are crucial for budgeting and financial management in both personal and business contexts. Financial institutions rely on mathematical models for risk assessment, investment analysis, and forecasting, ensuring informed decision-making.\n' +
+                    'Chapter 2: Statistics\n' +
+                    'Statistics plays a pivotal role in data analysis, guiding informed decision-making in business and maintaining quality control in manufacturing through statistical processes.\n' +
+                    'Chapter 3: Relation\n' + 'The concept of relation is applied in economics to connect individuals with businesses or services, facilitating analysis, prediction, and optimization in various systems.\n' + 
+                    'Chapter 4: Polynomials\n' + 'Polynomials find practical use in finance through regression analysis in machine learning, aiding in predicting outcomes based on input data.\n' + 
+                    'Chapter 5: Equations\n' + 'Equations are fundamental for modeling real-world phenomena in physics, finance, and healthcare, allowing for the analysis of complex systems.\n' + 
+                    'Chapter 6: Modeling With Graphs\n' + 'Graph modeling contributes to effective strategies for optimization, analysis, and decision-making in transportation, project management, and computer science.\n' +
+                    'Chapter 7: Analyzing Linear Relations\n' + 'Linear relations are essential in marketing, finance, human resources, and criminology, facilitating analysis, prediction, and decision-making.\n' +
+                    'Chapter 8: Geometric Relationship\n' + 'Geometry has tangible applications in architecture, computer graphics, navigation, and physics, aiding in problem-solving, design, and decision-making.\n' +
+                    'Chapter 9: Measurement Relationship\n' + ' Measurement relationships apply in health and fitness, temperature measurement, and medicine, providing a quantitative framework for understanding and interacting with the world.\n' +
+                    'Chapter 10: Optimizing Measurement\n' + 'Optimizing measurement is crucial in manufacturing, data analytics, and financial risk management, enhancing decision-making and resource utilization. \n' 
+                    '';
+                break;
+            case 'science':
+                document.getElementById('contentHeading').innerText = 'Grade 9 Science';
+                document.getElementById('contentText').innerText =
+                    'Chapter 1: Living and Working with Science\n' +
+                    'Scientific principles contribute to health and wellness, nutrition, STEM, and cybersecurity, advancing our understanding of the world and driving progress in diverse fields. The integration of science enhances our ability to contribute to advancements in various aspects of life and work.\n' +
+                    'Chapter 2: Understanding Ecosystems\n' +
+                    'The understanding of ecosystems is critical for promoting sustainability, preserving biodiversity, and addressing environmental challenges in contexts such as pharmaceutical research and water resource management.\n' +
+                    'Chapter 3: Natural Ecosystems and Stewardship\n' +
+                    'The interconnectedness of human activities with the environment is demonstrated through climate change adaptation, sustainable fisheries, and agroforestry, emphasizing the importance of stewardship for the health and sustainability of ecosystems.\n' +
+                    'Chapter 4: Ecosystems by Design\n' +
+                    'Ecosystems by design promote harmony between the built environment and natural systems, seen in eco-friendly infrastructure, sustainable transportation, and habitat restoration, emphasizing the interconnectedness of human activities with the natural world.\n' +
+                    'Chapter 5: Properties of Matter\n' +
+                    'Understanding the properties of matter has practical applications in health, fitness, and home energy efficiency. It enables informed decision-making and troubleshooting, enhancing various activities.\n' +
+                    'Chapter 6: Elements and the Periodic Table\n' +
+                    'Elements and the Periodic Table play a crucial role in medicine, agriculture, construction, and energy production. They predict the behavior of substances and advance our understanding of the natural world.\n' +
+                    'Chapter 7: Chemical Compounds\n' +
+                    'Chemical compounds contribute to medicine, environmental protection, and energy production. Knowledge of these compounds is essential for technological advancements and industrial processes.\n' +
+                    'Chapter 8: Our Place in Space\n' +
+                    'Scientific concepts in astronomy, astrophysics, space exploration, and astrobiology have wide-ranging impacts on our daily lives, influencing technological advancements and contributing to our understanding of the universe.\n' +
+                    'Chapter 9: Beyond the Solar System\n' +
+                    'Exoplanet discoveries, interstellar spacecraft voyages, and space research and exploration, including Mars missions and the International Space Station, shape our vision of future space exploration and impact daily life through scientific, technological, and practical applications.\n' +
+                    'Chapter 10: Static Electricity\n' +
+                    'Static electricity is encountered in everyday scenarios, such as clothes clinging together or balloons sticking to surfaces. Understanding static electricity helps explain these phenomena and contributes to a broader comprehension of natural occurrences like lightning.\n' +
+                    'Chapter 11: Electrical Energy Production\n' +
+                    'Knowledge of electrical energy production is crucial for designing and operating power plants, including coal-fired, hydroelectric, and solar facilities. Understanding these principles is essential for exploring sustainable energy alternatives.\n' +
+                    'Chapter 12: Electrical Quantities in Circuits\n' +
+                    'Understanding electrical quantities is practical for designing safe household wiring systems and electronic devices. It relates to the layout and function of outlets, switches, circuit breakers, and electronic components in everyday life.\n' +
+                    '';
+                break;
+            // Add more cases for other subjects
+        }
+    }
+
+    function goBack() {
+        var screens = ['loginScreen', 'gradeSelectionScreen', 'subjectsScreen', 'contentScreen'];
+        for (var i = 0; i < screens.length; i++) {
+            var screen = document.getElementById(screens[i]);
+            if (screen.style.display === 'block') {
+                screen.style.display = 'none';
+                if (i > 0) {
+                    document.getElementById(screens[i - 1]).style.display = 'block';
+                }
+                break;
+            }
+        }
+    }
+
+    function increaseFontSize() {
+        var currentSize = window.getComputedStyle(document.body, null).getPropertyValue('font-size');
+        var newSize = (parseFloat(currentSize) * 1.2) + "px";
+        document.body.style.fontSize = newSize;
+    }
+
+    function decreaseFontSize() {
+        var currentSize = window.getComputedStyle(document.body, null).getPropertyValue('font-size');
+        var newSize = (parseFloat(currentSize) / 1.2) + "px";
+        document.body.style.fontSize = newSize;
+    }
+
+    function textToSpeech() {
+        var contentText = document.getElementById('contentText').innerText;
+        var speech = new SpeechSynthesisUtterance(contentText);
+        window.speechSynthesis.speak(speech);
+    }
+
+    function boldWords() {
+        var contentText = document.getElementById('contentText');
+        var wordsToBold = ['Mathematical', 'Science', 'Financial', 'Health', 'Technology']; // Add more words as needed
+        wordsToBold.forEach(word => {
+            var regex = new RegExp('\\b' + word + '\\b', 'gi');
+            contentText.innerHTML = contentText.innerHTML.replace(regex, '<b>' + word + '</b>');
+        });
+    }
+
+    function addUserNotes() {
+        var userNotes = document.getElementById('userNotes').value;
+        var userNotesContainer = document.getElementById('userNotesContainer');
+        var noteElement = document.createElement('div');
+        noteElement.innerHTML = '<strong>User Note:</strong> ' + userNotes;
+        userNotesContainer.appendChild(noteElement);
+    }
+</script>
+
+</body>
+</html>

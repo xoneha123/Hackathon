@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Note Taking Website</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+    }
+    .login-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .login-form {
+      text-align: center;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .home-container {
+      text-align: center;
+      padding: 20px;
+    }
+    .chapter-content {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+<!-- Login Page -->
+<div class="login-container">
+  <div class="login-form">
+    <h2>Login</h2>
+    <button onclick="goToHome()">Submit</button>
+  </div>
+</div>
+
+<!-- Home Page -->
+<div id="homePage" class="home-container" style="display: none;">
+  <h2>Choose a Subject</h2>
+  <button onclick="loadChapter('Grade 9 Math')">Grade 9 Math</button>
+  <button onclick="loadChapter('Grade 9 Science')">Grade 9 Science</button>
+  <button onclick="loadChapter('Grade 10 Math')">Grade 10 Math</button>
+  <button onclick="loadChapter('Grade 10 Science')">Grade 10 Science</button>
+</div>
+
+<!-- Chapter Content Page -->
+<div id="chapterContent" class="chapter-content" style="display: none;">
+  <h2 id="chapterTitle"></h2>
+  <div id="chapterText"></div>
+  <button onclick="increaseFontSize()">Increase Font Size</button>
+  <button onclick="decreaseFontSize()">Decrease Font Size</button>
+  <button onclick="textToSpeech()">Text to Speech</button>
+  <button onclick="boldText()">Bold</button>
+  <textarea id="userNotes" placeholder="Add Your Notes"></textarea>
+</div>
+
+<script>
+  let fontSize = 16; // Initial font size
+
+  function goToHome() {
+    document.getElementById('homePage').style.display = 'block';
+    document.querySelector('.login-container').style.display = 'none';
+  }
+
+  function loadChapter(subject) {
+    const chapterContainer = document.getElementById('chapterContent');
+    const chapterTitle = document.getElementById('chapterTitle');
+    const chapterText = document.getElementById('chapterText');
+    const userNotes = document.getElementById('userNotes');
+
+    // Display Chapter Content based on the selected subject
+    if (subject === 'Grade 9 Math') {
+      chapterTitle.textContent = 'Grade 9 Math - Chapter 1: Mathematical Processes';
+      chapterText.innerHTML = `
+        Mathematical processes are crucial for budgeting and financial management...
+        <br><br>
+        Chapter 2: Statistics - Statistics plays a pivotal role in data analysis...
+        <!-- Add more content as needed -->
+      `;
+    } else if (subject === 'Grade 9 Science') {
+      chapterTitle.textContent = 'Grade 9 Science - Chapter 1: Living and Working with Science';
+      chapterText.innerHTML = `
+        Scientific principles contribute to health and wellness, nutrition, STEM, and cybersecurity...
+        <br><br>
+        Chapter 2: Understanding Ecosystems - The understanding of ecosystems is critical for promoting sustainability...
+        <!-- Add more content as needed -->
+      `;
+    } else if (subject === 'Grade 10 Math') {
+      chapterTitle.textContent = 'Grade 10 Math - Chapter 1: Systems of Linear Equations';
+      chapterText.innerHTML = `
+        Real-world applications include business planning, where companies model production...
+        <br><br>
+        Chapter 2: Analytic Geometry: Line Segments and Circles - Analytic geometry finds application in urban planning...
+        <!-- Add more content as needed -->
+      `;
+    } else if (subject === 'Grade 10 Science') {
+      chapterTitle.textContent = 'Grade 10 Science - Chapter 1: Living and Working with Science';
+      chapterText.innerHTML = `
+        Scientific principles are applied in medical research to understand diseases, develop treatments...
+        <br><br>
+        Chapter 2: Cells, Cell Division, and Cell Specialisation - In medicine, understanding cell division is crucial...
+        <!-- Add more content as needed -->
+      `;
+    }
+
+    // Show Chapter Content
